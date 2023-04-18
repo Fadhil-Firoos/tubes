@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+from random import randint
 
 def display_score():
     current_time = int(pygame.time.get_ticks() / 1000) - start_time
@@ -7,6 +8,38 @@ def display_score():
     score_rect = score_surf.get_rect(center = (800, 255))
     screen.blit(score_surf, score_rect)
     return current_time
+
+def obstacle_movement( obstacle_list):
+    if obstacle_list:
+        for obtacle_rect in obstacle_list:
+            obtacle_rect.x -= 10 
+
+            screen.blit(obstacle_surf,obtacle_rect)
+        return obstacle_list
+    else: return []
+
+def collision(kocengs, obstacles):
+    if obstacles:
+        for obstacle_rect in obstacles:
+            if kocengs.colliderect(obstacle_rect): 
+                return False
+    return True
+    
+def koceng_animation():
+    # walking and jump animation fro kuceng
+    global koceng_surface, koceng_index
+    if koceng_rect.bottom < 680:
+        # jump
+        koceng_index += 0.223
+        if koceng_index >= len(koceng_jump):
+            koceng_index = 0
+        koceng_surface = koceng_jump[int(koceng_index)]
+    else:
+        # walk
+        koceng_index += 0.31
+        if koceng_index >= len(koceng_walk):
+            koceng_index = 0
+        koceng_surface = koceng_walk[int(koceng_index)]
 
 pygame.init()
 screen = pygame.display.set_mode((1600, 850))
@@ -32,8 +65,33 @@ logo_surf = pygame.image.load('asset/img/bg/logo/Koceng_Loncat.png')
 
 obstacle_surf = pygame.image.load('asset/img/obstacle/1.png').convert_alpha()
 obstacle_rect = obstacle_surf.get_rect(bottomright = (1700, 680))
+obstacle_rect_list = []
 
-koceng_surface = pygame.image.load('asset/img/koceng/run/5.png').convert_alpha()
+koceng_walk1 = pygame.image.load('asset/img/koceng/walk/1.png').convert_alpha()
+koceng_walk2 = pygame.image.load('asset/img/koceng/walk/2.png').convert_alpha()
+koceng_walk3 = pygame.image.load('asset/img/koceng/walk/3.png').convert_alpha()
+koceng_walk4 = pygame.image.load('asset/img/koceng/walk/4.png').convert_alpha()
+koceng_walk5 = pygame.image.load('asset/img/koceng/walk/5.png').convert_alpha()
+koceng_walk6 = pygame.image.load('asset/img/koceng/walk/6.png').convert_alpha()
+koceng_walk7 = pygame.image.load('asset/img/koceng/walk/7.png').convert_alpha()
+koceng_walk8 = pygame.image.load('asset/img/koceng/walk/8.png').convert_alpha()
+koceng_walk = [koceng_walk1, koceng_walk2, koceng_walk3, koceng_walk4, koceng_walk5, koceng_walk6, koceng_walk7, koceng_walk8]
+koceng_index = 0
+
+koceng_jump1 = pygame.image.load('asset/img/koceng/jump/1.png').convert_alpha()
+koceng_jump2 = pygame.image.load('asset/img/koceng/jump/2.png').convert_alpha()
+koceng_jump3 = pygame.image.load('asset/img/koceng/jump/3.png').convert_alpha()
+koceng_jump4 = pygame.image.load('asset/img/koceng/jump/4.png').convert_alpha()
+koceng_jump5 = pygame.image.load('asset/img/koceng/jump/5.png').convert_alpha()
+koceng_jump6 = pygame.image.load('asset/img/koceng/jump/6.png').convert_alpha()
+koceng_jump7 = pygame.image.load('asset/img/koceng/jump/7.png').convert_alpha()
+koceng_jump8 = pygame.image.load('asset/img/koceng/jump/8.png').convert_alpha()
+koceng_jump9 = pygame.image.load('asset/img/koceng/jump/9.png').convert_alpha()
+koceng_jump10 = pygame.image.load('asset/img/koceng/jump/10.png').convert_alpha()
+koceng_jump = [koceng_jump1, koceng_jump2, koceng_jump3, koceng_jump4, koceng_jump5, koceng_jump6, koceng_jump7, koceng_jump8, koceng_jump9, koceng_jump10]
+
+
+koceng_surface = koceng_walk[koceng_index]
 koceng_rect = koceng_surface.get_rect(midbottom = (200, 680))
 koceng_gravity = 0
 
@@ -42,7 +100,9 @@ koceng_stand_rect = koceng_stand.get_rect(center = (800, 580))
 
 logo_rect = logo_surf.get_rect(center = (800, 255))
 
+# timer
 obstacle_timer = pygame.USEREVENT + 1
+pygame.time.set_timer(obstacle_timer, 2000)
 
 while True:
     for event in pygame.event.get():
@@ -51,6 +111,9 @@ while True:
             exit()
 
         if game_active:
+            if event.type == obstacle_timer:
+                obstacle_rect_list.append(obstacle_surf.get_rect(bottomright = (randint(1700, 2000), 680)))
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if koceng_rect.collidepoint(event.pos) and koceng_rect.bottom >= 680 :
                     koceng_gravity = -24
@@ -59,12 +122,14 @@ while True:
                 if event.key == pygame.K_SPACE and koceng_rect.bottom >= 680:
                     koceng_gravity = -24
                     status = 1
+                    koceng_index = 0
 
         else : 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
                 obstacle_rect.left = 1700
                 start_time = int(pygame.time.get_ticks() / 1000)
+
     
 
     if game_active == False and status == 1:
@@ -89,21 +154,29 @@ while True:
 
         # pygame.draw.ellipse( screen, 'brown', pygame.Rect(200, 580, 100, 100))
 
-        obstacle_rect.x -= 10   
-        if obstacle_rect.right <= 0 : 
-            obstacle_rect.left = 1700
-        screen.blit(obstacle_surf,obstacle_rect)
+        # obstacle_rect.x -= 10   
+        # if obstacle_rect.right <= 0 : 
+        #     obstacle_rect.left = 1700
+        # screen.blit(obstacle_surf,obstacle_rect)
 
         #player
         koceng_gravity += 1
         koceng_rect.y += koceng_gravity
         if koceng_rect.bottom >= 680:
             koceng_rect.bottom = 680
+        koceng_animation()
         screen.blit(koceng_surface, koceng_rect)
 
+        # obstacle movment
+        obstacle_rect_list = obstacle_movement( obstacle_rect_list)
+
+        # collision
+        game_active = collision(koceng_rect, obstacle_rect_list)
+
         #game over
-        if obstacle_rect.colliderect(koceng_rect):
-            game_active = False
+        if not game_active:
+            obstacle_rect_list.clear()
+            print (obstacle_rect_list)
             score_message = test_font.render(f"Your score  {score}", False, ("#F0F0F0"))
             score_message_rect = score_message.get_rect(center = (800, 300))
             screen.blit(board_surf, board_rect)
