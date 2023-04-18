@@ -176,7 +176,6 @@ while True:
         #game over
         if not game_active:
             obstacle_rect_list.clear()
-            print (obstacle_rect_list)
             score_message = test_font.render(f"Your score  {score}", False, ("#F0F0F0"))
             score_message_rect = score_message.get_rect(center = (800, 300))
             screen.blit(board_surf, board_rect)
