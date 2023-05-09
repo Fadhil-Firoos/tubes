@@ -37,6 +37,12 @@ class Player(pygame.sprite.Sprite):
         self.jump_sound = pygame.mixer.Sound('asset/audio/jump.mp3')
         self.game_over_sound = pygame.mixer.Sound('asset/audio/game_over.mp3')
 
+    def mask(self):
+        for i in self.player_walk:
+            pygame.mask.from_surface(i)
+        for i in self.player_jump:
+            pygame.mask.from_surface(i)
+            
     def player_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.rect.bottom >= 680:
@@ -51,6 +57,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom >= 680:
             self.rect.bottom = 680
     
+
     def animation_state(self):
         if self.rect.bottom < 680:
             # jump
@@ -70,6 +77,7 @@ class Player(pygame.sprite.Sprite):
         self.game_over_sound.set_volume(0.2)
 
     def update(self):
+        self.mask()
         self.player_input()
         self.apply_gravity()
         self.animation_state()
@@ -93,6 +101,11 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(bottomright = (1700, 680))
         self.obstacle_time = 0
 
+    
+    def mask(self):
+        for i in self.obstacle_list:
+            pygame.mask.from_surface(i)
+
     def random_obstacle(self):
         self.image = self.obstacle_list[self.obstacle_index]
     
@@ -108,6 +121,7 @@ class Obstacle(pygame.sprite.Sprite):
             self.kill()
 
     def update(self):
+        self.mask()
         self.random_obstacle()
         self.rect.x -= 10 
 
@@ -189,35 +203,35 @@ game_over_rect = game_over.get_rect(center = (800, 200))
 board_surf = pygame.image.load("asset/img/bg/board/end.png")
 board_rect = board_surf.get_rect(center = (800, 255))
 
-sky_surface = pygame.image.load('asset/img/bg/maps/1.png').convert()
-ground_surface = pygame.image.load('asset/img/bg/maps/ground1.png').convert()
+sky_surface = pygame.image.load('asset/img/bg/maps/1.png').convert_alpha()
+ground_surface = pygame.image.load('asset/img/bg/maps/ground1.png').convert_alpha()
 logo_surf = pygame.image.load('asset/img/bg/logo/Koceng_Loncat.png')
 
-# obstacle_surf = pygame.image.load('asset/img/obstacle/1.png').convert_alpha()
+# obstacle_surf = pygame.image.load('asset/img/obstacle/1.png')..convert_alpha()
 # obstacle_rect = obstacle_surf.get_rect(bottomright = (1700, 680))
 # obstacle_rect_list = []
 
-# koceng_walk1 = pygame.image.load('asset/img/koceng/walk/1.png').convert_alpha()
-# koceng_walk2 = pygame.image.load('asset/img/koceng/walk/2.png').convert_alpha()
-# koceng_walk3 = pygame.image.load('asset/img/koceng/walk/3.png').convert_alpha()
-# koceng_walk4 = pygame.image.load('asset/img/koceng/walk/4.png').convert_alpha()
-# koceng_walk5 = pygame.image.load('asset/img/koceng/walk/5.png').convert_alpha()
-# koceng_walk6 = pygame.image.load('asset/img/koceng/walk/6.png').convert_alpha()
-# koceng_walk7 = pygame.image.load('asset/img/koceng/walk/7.png').convert_alpha()
-# koceng_walk8 = pygame.image.load('asset/img/koceng/walk/8.png').convert_alpha()
+# koceng_walk1 = pygame.image.load('asset/img/koceng/walk/1.png')..convert_alpha()
+# koceng_walk2 = pygame.image.load('asset/img/koceng/walk/2.png')..convert_alpha()
+# koceng_walk3 = pygame.image.load('asset/img/koceng/walk/3.png')..convert_alpha()
+# koceng_walk4 = pygame.image.load('asset/img/koceng/walk/4.png')..convert_alpha()
+# koceng_walk5 = pygame.image.load('asset/img/koceng/walk/5.png')..convert_alpha()
+# koceng_walk6 = pygame.image.load('asset/img/koceng/walk/6.png')..convert_alpha()
+# koceng_walk7 = pygame.image.load('asset/img/koceng/walk/7.png')..convert_alpha()
+# koceng_walk8 = pygame.image.load('asset/img/koceng/walk/8.png')..convert_alpha()
 # koceng_walk = [koceng_walk1, koceng_walk2, koceng_walk3, koceng_walk4, koceng_walk5, koceng_walk6, koceng_walk7, koceng_walk8]
 # koceng_index = 0
 
-# koceng_jump1 = pygame.image.load('asset/img/koceng/jump/1.png').convert_alpha()
-# koceng_jump2 = pygame.image.load('asset/img/koceng/jump/2.png').convert_alpha()
-# koceng_jump3 = pygame.image.load('asset/img/koceng/jump/3.png').convert_alpha()
-# koceng_jump4 = pygame.image.load('asset/img/koceng/jump/4.png').convert_alpha()
-# koceng_jump5 = pygame.image.load('asset/img/koceng/jump/5.png').convert_alpha()
-# koceng_jump6 = pygame.image.load('asset/img/koceng/jump/6.png').convert_alpha()
-# koceng_jump7 = pygame.image.load('asset/img/koceng/jump/7.png').convert_alpha()
-# koceng_jump8 = pygame.image.load('asset/img/koceng/jump/8.png').convert_alpha()
-# koceng_jump9 = pygame.image.load('asset/img/koceng/jump/9.png').convert_alpha()
-# koceng_jump10 = pygame.image.load('asset/img/koceng/jump/10.png').convert_alpha()
+# koceng_jump1 = pygame.image.load('asset/img/koceng/jump/1.png')..convert_alpha()
+# koceng_jump2 = pygame.image.load('asset/img/koceng/jump/2.png')..convert_alpha()
+# koceng_jump3 = pygame.image.load('asset/img/koceng/jump/3.png')..convert_alpha()
+# koceng_jump4 = pygame.image.load('asset/img/koceng/jump/4.png')..convert_alpha()
+# koceng_jump5 = pygame.image.load('asset/img/koceng/jump/5.png')..convert_alpha()
+# koceng_jump6 = pygame.image.load('asset/img/koceng/jump/6.png')..convert_alpha()
+# koceng_jump7 = pygame.image.load('asset/img/koceng/jump/7.png')..convert_alpha()
+# koceng_jump8 = pygame.image.load('asset/img/koceng/jump/8.png')..convert_alpha()
+# koceng_jump9 = pygame.image.load('asset/img/koceng/jump/9.png')..convert_alpha()
+# koceng_jump10 = pygame.image.load('asset/img/koceng/jump/10.png')..convert_alpha()
 # koceng_jump = [koceng_jump1, koceng_jump2, koceng_jump3, koceng_jump4, koceng_jump5, koceng_jump6, koceng_jump7, koceng_jump8, koceng_jump9, koceng_jump10]
 
 
