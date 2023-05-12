@@ -25,13 +25,6 @@ class Obstacle(pygame.sprite.Sprite):
 
     def random_obstacle(self):
         self.image = self.obstacle_list[self.obstacle_index]
-    
-    # def obstacle_timer(self):
-    #     # timer
-    #     self.obstacle_time = pygame.USEREVENT + 1
-    #     pygame.time.set_timer(self.obstacle_time, 2000)
-    #     self.random_obstacle()
-    #     return self.obstacle_time
 
     def destroy(self):
         if self.rect.x <= -100:
