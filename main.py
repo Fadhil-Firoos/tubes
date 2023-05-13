@@ -11,16 +11,17 @@ from button import *
 
 
     
-def collision_sprite():
+def collision_sprite(a):
     if pygame.sprite.spritecollide(player.sprite, obstacle_group, False):
         player.sprite.game_over_sound_play()
         obstacle_group.empty()
         koin_group.empty()  
         bg_music.stop()
-        skor_count = 0
-        return False
-    else : 
-        return True
+        return False, 0
+    elif a == 3 : 
+        return False, a
+    else :
+        return True, a
     
 def coin():
     if pygame.sprite.spritecollide(player.sprite, koin_group, True):
@@ -46,6 +47,7 @@ bg_music.set_volume(0.1)
 FPS = 60
 clock = pygame.time.Clock()
 skor_count = 0
+cond = 0
 
 
 # group
@@ -55,6 +57,7 @@ player.add(Kucing_1())
 button_play = Button_play()        
 button_shop = Button_shop()
 button_setting = Button_setting()
+button_resume = Button_resume()
 
 obstacle_group = pygame.sprite.Group()
 koin_group = pygame.sprite.Group()
@@ -160,21 +163,25 @@ while True:
             if event.type == pygame.MOUSEBUTTONDOWN:
                     if button_setting.rect.collidepoint(pygame.mouse.get_pos()):
                         cond = button_setting.action(True)
-                        if cond == True:
-                            print("setting")
+            
+        
+            if cond == True:
+                status = 3
+
 
         # collision
 
-        game_active = collision_sprite()
+        game_active, status = collision_sprite(status)
+        print(game_active, status)
 
         get = coin()
         if get == True:
             sum += 1
             Koin(get, sum)
-
         
+
         #game over
-        if not game_active:
+        if  game_active == False and status == 0:
             # obstacle_rect_list.clear()
             score_message = font.render(f"Your Score  {int(skor_count)}", False, ("#F0F0F0"))
             total_koin_message = font.render(f"Total Coin  {sum}", False, ("#F0F0F0"))
@@ -193,8 +200,17 @@ while True:
             intro_message_rect = intro_message.get_rect(center = (800, 580))
             screen.blit(intro_message, intro_message_rect)
             sum  = 0
-            status = 0
             skor_count = 0
+            status = 0
+
+    if game_active == False and status == 3:
+        button_setting.display_board()
+        button_resume.button_display()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if button_resume.rect.collidepoint(pygame.mouse.get_pos()):
+                cond = False
+                game_active = True
+                status = 2
 
 
     pygame.display.update()
