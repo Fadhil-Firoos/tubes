@@ -8,6 +8,7 @@ from skor import Skor
 from config import *
 from koin import *
 from button import *
+from bg import *
 
 
     
@@ -48,16 +49,25 @@ FPS = 60
 clock = pygame.time.Clock()
 skor_count = 0
 cond = 0
+cond_shop = 0
+thema = 2
 
 
 # group
+bg1 = Bg_1()
+bg2 = Bg_2()
+
 player = pygame.sprite.GroupSingle()
-player.add(Kucing_1())
+if thema == 1:
+    player.add(Kucing_1())
+elif thema == 2:
+    player.add(Kucing_2())
 
 button_play = Button_play()        
 button_shop = Button_shop()
 button_setting = Button_setting()
 button_resume = Button_resume()
+button_home = Button_home()
 
 obstacle_group = pygame.sprite.Group()
 koin_group = pygame.sprite.Group()
@@ -68,19 +78,9 @@ game_over = font.render("Game Over", False, ("#F0F0F0"))
 game_over_rect = game_over.get_rect(center = (800, 200))
 
 
+
 board_surf = pygame.image.load("asset/img/bg/board/end.png")
 board_rect = board_surf.get_rect(center = (800, 255))
-
-sky_surface = pygame.image.load('asset/img/bg/maps/1.png').convert_alpha()
-ground_surface = pygame.image.load('asset/img/bg/maps/ground1.png').convert_alpha()
-logo_surf = pygame.image.load('asset/img/bg/logo/Koceng_Loncat.png')
-
-
-# koceng_stand = pygame.image.load('asset/img/intro/5.png').convert_alpha()
-# koceng_stand_rect = koceng_stand.get_rect(center = (800, 580))        
-
-
-logo_rect = logo_surf.get_rect(center = (800, 255))
 
 # timer
 obstacle_timer = pygame.USEREVENT + 1
@@ -111,25 +111,43 @@ while True:
 
     if game_active == False and status == 1:
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if button_play.rect.collidepoint(pygame.mouse.get_pos()):
-                button_pressed = button_play.action()
-                bg_music.play()
-                status = 2
-                game_active = True
-                start_time = int(pygame.time.get_ticks() / 1000)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            if cond_shop != True:
+                if button_play.rect.collidepoint(pygame.mouse.get_pos()):
+                    button_pressed = button_play.action()
+                    bg_music.play()
+                    status = 2
+                    game_active = True
+                    start_time = int(pygame.time.get_ticks() / 1000)
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 if button_shop.rect.collidepoint(pygame.mouse.get_pos()):
-                    cond = button_shop.action()
-                    if cond == "thema":
-                        print("thema")
-        screen.blit(sky_surface, (0,0))
-        screen.blit(ground_surface, (0,654))
-        screen.blit(logo_surf, logo_rect)
-        button_shop.button_display()
-        button_play.button_display()
-        intro_message = font.render("Press Button to run", False, ("#f9981f"))
-        intro_message_rect = intro_message.get_rect(center = (800, 450))
-        screen.blit(intro_message, intro_message_rect)
+                    cond_shop =  button_shop.action(True)
+ 
+
+        if cond_shop == True:
+            button_shop.display_board(thema)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if button_shop.rect_close.collidepoint(pygame.mouse.get_pos()):
+                    cond_shop =  button_shop.action(False)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if button_shop.thema1_rect.collidepoint(pygame.mouse.get_pos()):
+                    thema = 1
+                    button_shop.display_board(thema)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if button_shop.thema2_rect.collidepoint(pygame.mouse.get_pos()):
+                    thema = 2
+                    button_shop.display_board(thema)
+
+        else:
+            if thema == 1:
+                bg1.display_bg()
+                bg1.display_logo()
+            elif thema == 2:
+                bg2.display_bg()
+            button_shop.button_display()
+            button_play.button_display()
+            intro_message = font.render("Press Button to run", False, ("#f9981f"))
+            intro_message_rect = intro_message.get_rect(center = (800, 450))
+            screen.blit(intro_message, intro_message_rect)
 
 
 
@@ -140,8 +158,10 @@ while True:
         bg_music.play()
 
     if game_active:
-        screen.blit(sky_surface, (0,0))
-        screen.blit(ground_surface, (0,654))
+        if thema == 1:
+            bg1.display_bg()
+        elif thema == 2:
+            bg2.display_bg()
         
         score = Skor(int(skor_count))
         score.update()
@@ -205,11 +225,18 @@ while True:
     if game_active == False and status == 3:
         button_setting.display_board()
         button_resume.button_display()
+        button_home.button_display()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if button_resume.rect.collidepoint(pygame.mouse.get_pos()):
                 cond = False
                 game_active = True
                 status = 2
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if button_home.rect.collidepoint(pygame.mouse.get_pos()):
+                cond = False
+                game_active = False
+                status = 1
+                bg_music.stop()
 
 
     pygame.display.update()
