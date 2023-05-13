@@ -50,7 +50,8 @@ clock = pygame.time.Clock()
 skor_count = 0
 cond = 0
 cond_shop = 0
-thema = 2
+thema = 1
+buy = 0
 
 
 # group
@@ -68,6 +69,7 @@ button_shop = Button_shop()
 button_setting = Button_setting()
 button_resume = Button_resume()
 button_home = Button_home()
+button_buy = Button_buy()
 
 obstacle_group = pygame.sprite.Group()
 koin_group = pygame.sprite.Group()
@@ -89,6 +91,7 @@ pygame.time.set_timer(obstacle_timer, 2000)
 
 while True:
     for event in pygame.event.get():
+        get = coin()
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
@@ -133,9 +136,19 @@ while True:
                     thema = 1
                     button_shop.display_board(thema)
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if button_shop.thema2_rect.collidepoint(pygame.mouse.get_pos()):
-                    thema = 2
-                    button_shop.display_board(thema)
+                if button_buy.rect.collidepoint(pygame.mouse.get_pos()):
+                    if int(Koin(get, coin_count).total_koin) < button_buy.harga:
+                        buy = button_shop.action(False)
+                    else:
+                        buy = button_shop.action(True)
+                    print(buy)
+            if buy == True:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if button_shop.thema2_rect.collidepoint(pygame.mouse.get_pos()):
+                        thema = 2
+                        button_shop.display_board(thema)
+            else:
+                button_buy.button_display()
 
         else:
             if thema == 1:
@@ -194,10 +207,9 @@ while True:
         game_active, status = collision_sprite(status)
         print(game_active, status)
 
-        get = coin()
         if get == True:
             coin_count+= 1
-            Koin(get, sum)
+            Koin(get, coin_count)
         
 
         #game over
@@ -205,7 +217,6 @@ while True:
             # obstacle_rect_list.clear()
             score_message = font.render(f"Your Score  {int(skor_count)}", False, ("#F0F0F0"))
             total_koin_message = font.render(f"Total Coin  {coin_count}", False, ("#F0F0F0"))
-            print(score.current_skor)
 
             score_message_rect = score_message.get_rect(center = (800, 300))
             total_koin_message_rect = score_message.get_rect(center = (800, 370))
