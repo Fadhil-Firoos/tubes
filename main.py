@@ -40,7 +40,7 @@ icon = pygame.image.load('asset/img/bg/icon/icon.png')
 bg_music = pygame.mixer.Sound("asset/audio/backsound1.mp3")
 pygame.display.set_icon(icon)
 game_active = False
-sum = 0
+coin_count= 0
 status = 1
 cond_button = ""
 bg_music.set_volume(0.1)
@@ -157,7 +157,7 @@ while True:
 
         button_play.update()
 
-        if status == 2:
+        if game_active == True and status == 2:
             skor_count += 0.01
             button_setting.button_display()
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -176,7 +176,7 @@ while True:
 
         get = coin()
         if get == True:
-            sum += 1
+            coin_count+= 1
             Koin(get, sum)
         
 
@@ -184,7 +184,7 @@ while True:
         if  game_active == False and status == 0:
             # obstacle_rect_list.clear()
             score_message = font.render(f"Your Score  {int(skor_count)}", False, ("#F0F0F0"))
-            total_koin_message = font.render(f"Total Coin  {sum}", False, ("#F0F0F0"))
+            total_koin_message = font.render(f"Total Coin  {coin_count}", False, ("#F0F0F0"))
             print(score.current_skor)
 
             score_message_rect = score_message.get_rect(center = (800, 300))
@@ -199,9 +199,8 @@ while True:
             intro_message = font.render("Press space to run", False, ("#f9981f"))
             intro_message_rect = intro_message.get_rect(center = (800, 580))
             screen.blit(intro_message, intro_message_rect)
-            sum  = 0
+            coin_count = 0
             skor_count = 0
-            status = 0
 
     if game_active == False and status == 3:
         button_setting.display_board()
