@@ -14,7 +14,7 @@ import pygame
 #         self.koinn()
 
 class Koin(pygame.sprite.Sprite):
-    def __init__(self, kondisi, sum):
+    def __init__(self, sum):
         super().__init__()
 
         koin1 = pygame.image.load('asset/img/koin/1.png').convert_alpha()
@@ -26,7 +26,6 @@ class Koin(pygame.sprite.Sprite):
         self.image = self.koin_list[self.koin_index]
         self.rect = self.image.get_rect(midbottom = (1660, 400))
         self.total_koin = sum
-        self.kond = kondisi
 
     def mask(self):
         for i in self.koin_list:

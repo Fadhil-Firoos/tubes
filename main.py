@@ -91,7 +91,6 @@ pygame.time.set_timer(obstacle_timer, 2000)
 
 while True:
     for event in pygame.event.get():
-        get = coin()
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
@@ -99,7 +98,7 @@ while True:
         if game_active:
             if event.type == obstacle_timer:
                 obstacle_group.add(Obstacle(randint(0,8)))
-                koin_group.add(Koin(False, sum))
+                koin_group.add(Koin(sum))
 
         elif game_active == False and status == 0: 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
@@ -137,11 +136,10 @@ while True:
                     button_shop.display_board(thema)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if button_buy.rect.collidepoint(pygame.mouse.get_pos()):
-                    if int(Koin(get, coin_count).total_koin) < button_buy.harga:
+                    if int(Koin(coin_count).total_koin) < button_buy.harga:
                         buy = button_shop.action(False)
                     else:
                         buy = button_shop.action(True)
-                    print(buy)
             if buy == True:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if button_shop.thema2_rect.collidepoint(pygame.mouse.get_pos()):
@@ -205,11 +203,11 @@ while True:
         # collision
 
         game_active, status = collision_sprite(status)
-        print(game_active, status)
-
+        
+        get = coin()
         if get == True:
             coin_count+= 1
-            Koin(get, coin_count)
+            Koin(coin_count)
         
 
         #game over
