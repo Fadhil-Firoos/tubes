@@ -1,8 +1,8 @@
 [
     {
-        "coin": 0,
-        "skor": 2,
-        "buy": false,
-        "thema": 1
+        "coin": 3,
+        "skor": 3,
+        "buy": true,
+        "thema": 2
     }
 ]

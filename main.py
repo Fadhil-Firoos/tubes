@@ -46,10 +46,6 @@ def jsonread():
             sk = data["skor"]
             by = data["buy"]
             thm = data["thema"]
-            print(cn)
-            print(sk)
-            print(by)
-            print(thm)
         return cn, sk, by, thm
     
 # method unutk mengedit data file json
@@ -129,6 +125,7 @@ pygame.time.set_timer(obstacle_timer, 2000)
 
 
 while True:
+    cn, sk, by, thm = jsonread() # deklarasi variable cn, sk, by, thm = jsonread()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -136,7 +133,7 @@ while True:
 
         if game_active:
             if event.type == obstacle_timer:
-                obstacle_group.add(Obstacle(randint(0,8)))
+                obstacle_group.add(Obstacle(randint(0,8))) # random obtacle
                 koin_group.add(Koin(coin_count, cn))
 
         elif game_active == False and status == 0: 
@@ -190,12 +187,13 @@ while True:
                 button_buy.button_display()            
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if button_buy.rect.collidepoint(pygame.mouse.get_pos()):
-                        if int(Koin(coin_count, cn).total_koin) < button_buy.harga:
+                        if cn < button_buy.harga:
                             buy = button_shop.action(False)
                         else:
                             buy = button_shop.action(True)
-                        jsonedit(0, 0, buy, thema)
-            jsonedit(0, 0, buy, thema)
+                            kn = cn - button_buy.harga
+                        jsonedit(kn, sk, buy, thema)
+            
 
         # untuk mengatur tampilan tema
         else:
@@ -279,8 +277,10 @@ while True:
             intro_message_rect = intro_message.get_rect(center = (800, 530))
             screen.blit(intro_message, intro_message_rect)
             kn = Koin(coin_count, cn).koin_return(cn)
-            jsonedit(kn, int(skor_count), buy, thema)
-
+            if sk < int(skor_count):
+                jsonedit(kn, int(skor_count), buy, thema)
+            else:
+                jsonedit(kn, sk, buy, thema)
             coin_count = 0
             skor_count = 0
     # jika sattus 3 dan game_active False maka game akan pause
