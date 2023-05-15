@@ -104,10 +104,10 @@ button_resume = Button_resume()
 button_home = Button_home()
 button_buy = Button_buy()
 
+
+
 obstacle_group = pygame.sprite.Group()
 koin_group = pygame.sprite.Group()
-
-
 
 player = pygame.sprite.GroupSingle()
 player.add(Kucing_1())
@@ -178,21 +178,30 @@ while True:
                 if button_shop.thema1_rect.collidepoint(pygame.mouse.get_pos()):
                     thema = 1
                     button_shop.display_board(thema)
+                    jsonedit(cn, sk, buy, thema)
             if buy == True:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if button_shop.thema2_rect.collidepoint(pygame.mouse.get_pos()):
                         thema = 2
                         button_shop.display_board(thema)
+                        jsonedit(cn, sk, buy, thema)
             else:
                 button_buy.button_display()            
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if button_buy.rect.collidepoint(pygame.mouse.get_pos()):
-                        if cn < button_buy.harga:
-                            buy = button_shop.action(False)
+                        try :
+                            print(cn)
+                        except:
+                            print("coin tidak terdefinisi")
                         else:
-                            buy = button_shop.action(True)
-                            kn = cn - button_buy.harga
-                        jsonedit(kn, sk, buy, thema)
+                            if cn < button_buy.harga:
+                                buy = button_shop.action(False)
+                            else:
+                                buy = button_shop.action(True)
+                                kn = cn - button_buy.harga
+                            jsonedit(kn, sk, buy, thema)
+                        finally:
+                            print("succes")
             
 
         # untuk mengatur tampilan tema
