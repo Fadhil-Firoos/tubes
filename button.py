@@ -124,14 +124,19 @@ class Button_home(Button):
     def __init__(self):
         super().__init__()
         self.button = pygame.image.load('asset/img/button/home.png').convert_alpha()
+        self.button_game_over = pygame.image.load('asset/img/button/home.png').convert_alpha()
         self.x = 700
         self.y = 450
         self.rect = self.button.get_rect(center = (self.x, self.y))
+        self.rect_game_over = self.button.get_rect(center = (800, 410))
         self.cond = True
         self.jenis = "home"
     
     def button_display(self):
         layar.blit(self.button, self.rect)
+    
+    def button_display_game_over(self):
+        layar.blit(self.button_game_over, self.rect_game_over)
 
     def action(self):
         return self.jenis
