@@ -283,7 +283,7 @@ while True:
             screen.blit(total_koin_message, total_koin_message_rect)
 
             intro_message = font.render("Press space to run", False, ("#f9981f"))
-            intro_message_rect = intro_message.get_rect(center = (800, 530))
+            intro_message_rect = intro_message.get_rect(center = (800, 570))
             screen.blit(intro_message, intro_message_rect)
             kn = Koin(coin_count, cn).koin_return(cn)
             if sk < int(skor_count):
