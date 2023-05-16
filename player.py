@@ -1,6 +1,7 @@
 import pygame
 from abc import ABC, abstractclassmethod
 
+# Parrent class
 class Player(pygame.sprite.Sprite, ABC):
     def __init__(self):
         super().__init__()
@@ -46,6 +47,7 @@ class Player(pygame.sprite.Sprite, ABC):
         self.apply_gravity()
         self.animation_state()
 
+# berfungsi unutk mengatur animasi player pada saat lompat atau berlari
 class Kucing_1(Player):
     def __init__(self):
         super().__init__()

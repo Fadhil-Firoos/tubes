@@ -1,6 +1,7 @@
 import pygame
 from config import *
 
+# melakukan perhitungan coin dan menampilkan coin pada saat game dimulai
 class Koin(pygame.sprite.Sprite):
     def __init__(self, sum, cn):
         super().__init__()

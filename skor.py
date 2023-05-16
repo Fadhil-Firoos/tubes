@@ -1,5 +1,6 @@
 from config import *
 
+# melakukan perhitungan skor dan menampilkan skor pada saat game dimulai
 class Skor:
     def __init__(self,skor):
         self.__current_skor = skor

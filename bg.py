@@ -15,7 +15,7 @@ class Bg():
     def display_bg(self):
         pass
 
-
+# untuk menampilkan tema 1
 class Bg_1(Bg):
     def __init__(self):
         super().__init__()
@@ -26,6 +26,7 @@ class Bg_1(Bg):
         layar.blit(self.sky_surface, (0,0))
         layar.blit(self.ground_surface, (0,654))
 
+# untuk menampilkan tema 2
 class Bg_2(Bg):
     def __init__(self):
         super().__init__()

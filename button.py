@@ -2,6 +2,7 @@ import pygame
 from abc import ABC, abstractclassmethod
 from config import *
 
+# parrent class
 class Button():
     def __init__(self):
         self.button_click = pygame.mixer.Sound('asset/audio/button.mp3')
@@ -11,7 +12,7 @@ class Button():
     def action(self):
         pass
 
-
+# berfungsi untuk memulai permainan
 class Button_play(Button):
     def __init__(self):
         super().__init__()
@@ -30,6 +31,7 @@ class Button_play(Button):
     def update(self):
         self.action()
 
+# berfungsi untuk menampilkan menu setting / pause pada saat game dimulai
 class Button_setting(Button):
     def __init__(self):
         super().__init__()
@@ -57,6 +59,7 @@ class Button_setting(Button):
     def update(self):
         self.action()
 
+# berfungsi untk menampilkan menu shop / pilih tema pada homepage
 class Button_shop(Button,):
     def __init__(self):
         super().__init__()
@@ -101,6 +104,7 @@ class Button_shop(Button,):
     def update(self):
         self.action()
 
+# berfungsi untuk melanjutkan permainan pada saat permainan di pause
 class Button_resume(Button):
     def __init__(self):
         super().__init__()
@@ -120,6 +124,7 @@ class Button_resume(Button):
     def update(self):
         self.action()
 
+# berfungsi untuk kembali ke homepage
 class Button_home(Button):
     def __init__(self):
         super().__init__()
@@ -143,6 +148,8 @@ class Button_home(Button):
         
     def update(self):
         self.action()
+
+# jika tema yang terkunci belum dibuka class ini berfungsi untuk membeli tema yang belum terbuka
 class Button_buy(Button):
     def __init__(self):
         super().__init__()

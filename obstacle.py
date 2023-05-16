@@ -1,5 +1,6 @@
 import pygame
 
+# berfungsi unutuk mengatur tampilan obtacle dimana obtacle akan ditampilkan secara random dari 9 asset yang ada
 class Obstacle(pygame.sprite.Sprite):
     def __init__(self, index):
         super().__init__()
