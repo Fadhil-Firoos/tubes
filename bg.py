@@ -2,7 +2,7 @@ import pygame
 from abc import ABC, abstractclassmethod
 from config import *
 
-class Bg():
+class Bg(ABC):
     def __init__(self):
         self.logo_surf = pygame.image.load('asset/img/bg/logo/Koceng_Loncat.png')
         self.logo_rect = self.logo_surf.get_rect(center = (800, 255))

@@ -1,6 +1,7 @@
 # import modul
 import pygame
 import time
+import json
 from sys import exit
 from random import randint
 from obstacle import *
@@ -10,8 +11,7 @@ from config import *
 from koin import *
 from button import *
 from bg import *
-import json
-# deklarasi variable engan value nama file json
+# deklarasi variable dengan value nama file json
 filename = "data.json"
 
 
@@ -269,8 +269,10 @@ while True:
 
         #jika status 0 dan game_active false maka game over
         if  game_active == False and status == 0:
-            # obstacle_rect_list.clear()
-            score_message = font.render(f"Your Score  {int(skor_count)}", False, ("#F0F0F0"))
+            if skor_count > sk:
+                score_message = font.render(f"Hight Score  {int(skor_count)}", False, ("#F0F0F0"))
+            else:
+                score_message = font.render(f"Your Score  {int(skor_count)}", False, ("#F0F0F0"))
             total_koin_message = font.render(f"Total Coin  {coin_count}", False, ("#F0F0F0"))
 
             score_message_rect = score_message.get_rect(center = (800, 250))

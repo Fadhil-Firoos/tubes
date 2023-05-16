@@ -1,5 +1,6 @@
 import pygame
 
+# konfigurasi game
 pygame.init()
 width = 1600
 height = 850

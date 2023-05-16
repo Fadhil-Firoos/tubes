@@ -3,7 +3,7 @@ from abc import ABC, abstractclassmethod
 from config import *
 
 # parrent class
-class Button():
+class Button(ABC):
     def __init__(self):
         self.button_click = pygame.mixer.Sound('asset/audio/button.mp3')
 
@@ -24,7 +24,7 @@ class Button_play(Button):
     
     def button_display(self):
         layar.blit(self.button, self.rect)
-
+    
     def action(self):
         pass
 
@@ -59,7 +59,7 @@ class Button_setting(Button):
     def update(self):
         self.action()
 
-# berfungsi untk menampilkan menu shop / pilih tema pada homepage
+# berfungsi untuk menampilkan menu shop / pilih tema pada homepage
 class Button_shop(Button,):
     def __init__(self):
         super().__init__()
