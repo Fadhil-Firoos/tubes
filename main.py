@@ -69,8 +69,6 @@ def jsonedit(cn, sk, by, thm):
     
     return cn, sk, by, thm
 
-# def skor():
-#     return current_skor
 
 pygame.init()
 cn, sk, by, thm = jsonread() # deklarasi variable cn, sk, by, thm = jsonread()

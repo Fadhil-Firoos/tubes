@@ -9,6 +9,10 @@ class Button(ABC):
 
 
     @abstractclassmethod
+    def button_display(self):
+        pass
+    
+    @abstractclassmethod
     def action(self):
         pass
 
@@ -24,10 +28,10 @@ class Button_play(Button):
     
     def button_display(self):
         layar.blit(self.button, self.rect)
-    
-    def action(self):
-        pass
 
+    def action(self):
+        pass    
+    
     def update(self):
         self.action()
 
@@ -97,7 +101,6 @@ class Button_shop(Button,):
             layar.blit(self.thema2_pick, self.thema2_rect)
         
 
-
     def action(self, cond):
         return cond
         
@@ -119,7 +122,7 @@ class Button_resume(Button):
         layar.blit(self.button, self.rect)
 
     def action(self):
-        return self.jenis
+        pass
         
     def update(self):
         self.action()
@@ -144,7 +147,7 @@ class Button_home(Button):
         layar.blit(self.button_game_over, self.rect_game_over)
 
     def action(self):
-        return self.jenis
+        pass
         
     def update(self):
         self.action()
