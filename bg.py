@@ -1,8 +1,7 @@
 import pygame
-from abc import ABC, abstractclassmethod
 from config import *
 
-class Bg(ABC):
+class Bg():
     def __init__(self):
         self.logo_surf = pygame.image.load('asset/img/bg/logo/Koceng_Loncat.png')
         self.logo_rect = self.logo_surf.get_rect(center = (800, 255))
@@ -11,9 +10,6 @@ class Bg(ABC):
     def display_logo(self):
         layar.blit(self.logo_surf,self.logo_rect)
     
-    @abstractclassmethod
-    def display_bg(self):
-        pass
 
 # untuk menampilkan tema 1
 class Bg_1(Bg):
