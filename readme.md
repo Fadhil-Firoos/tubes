@@ -59,7 +59,7 @@ jika koin telah mencukupi player dapat membeli tema kedua dengan cara menekan to
 
 ## Pengembang Game
  
-| KELOMPOK : RB-10 - KUCENG LONCAT |
+| KELOMPOK : RB-10 - KOCENG LONCAT |
 | ---------------- |
 
 | NIM  | Nama | Sebagai |
