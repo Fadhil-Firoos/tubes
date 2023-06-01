@@ -1,6 +1,6 @@
 # PYTHON GAME BY KOCENG LONCAT
 
-<img src="asset/preview/logo.png" width="100%">
+<img src="asset/preview/logo.png" width="50%">
 
 ## Deskripsi Game
 Game “Koceng Loncat” adalah sebuah game sederhana yang menghadirkan pertualangan seru dari sudut pandang seekot kucing yang bisa melompat melewati rintangan. Game ini dikembangkan menggunakan library Pygame, yang merupakan library pemrograman dalam bahasa Python untuk membuat game 2D. Konsep permainan dari “Koceng Loncat” ialah pemain mengendalikan seekor kucing yang berlari secara otomatis di layar, dan tugas pemain adalah mengendalikan kucing tersebut untuk melompati rintangan dengan menggunakan tombol “space” yang muncul di jalannya. Pemain juga harus mendapatkan koin yang mencakupi untuk memainkan tema selanjutnya. 
@@ -28,20 +28,20 @@ Perintah untuk menjalankan game:
 
 ## Cara Bermain 
 
-<img src="preview/home.png" width="100%">
+<img src="asset/preview/home.png" width="100%">
 
 Setelah game dijalankan, maka akan muncul tampilan menu utama seperti gambar di atas. Setelah itu, klik tombol untuk memulai permainan
 
-<img src="preview/game-run.png" width="100%"> 
+<img src="asset/preview/game-run.png" width="100%"> 
 
 Setelah game dimulai player diharuskan menghindari rintangan yang ada dengan cara menekan tombol `space` unutk mendapatkan score sebanyak-banyaknya dan mengumpulkan koin sebanyak-banyaknya unutk membuka tema.
 
-<img src="preview/game_over.png" width="100%"> 
+<img src="asset/preview/game_over.png" width="100%"> 
 Jika player mengenai rintangan maka game over dan data akan direcord dan player dapat memilih akan bermain lagi atau kembali ke home.
 
-<img src="preview/menu_tema.png" width="100%"> 
-<img src="preview/tema2_buy.png" width="100%"> 
-<img src="preview/tema2.png" width="100%"> 
+<img src="asset/preview/menu_tema.png" width="100%"> 
+<img src="asset/preview/tema2_buy.png" width="100%"> 
+<img src="asset/preview/tema2.png" width="100%"> 
 jika koin telah mencukupi player dapat membeli tema kedua dengan cara menekan tombol tema yang berada di pojok kanan atas pada menu home kemudian klik tombol buy dan tema kedua telah dibuka kemudian player dapat menggunakan kedua tema yang telah ada.
 
 
