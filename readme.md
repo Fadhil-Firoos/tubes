@@ -1,4 +1,4 @@
-# PYTHON GAME BY PULANGMEN
+# PYTHON GAME BY KOCENG LONCAT
 
 <img src="asset/preview/logo.png" width="100%">
 
