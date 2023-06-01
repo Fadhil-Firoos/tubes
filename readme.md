@@ -32,7 +32,7 @@ Perintah untuk menjalankan game:
 
 Setelah game dijalankan, maka akan muncul tampilan menu utama seperti gambar di atas. Setelah itu, klik tombol untuk memulai permainan
 
-<img src="asset/preview/game-run.png" width="100%"> 
+<img src="asset/preview/game_run.png" width="100%"> 
 
 Setelah game dimulai player diharuskan menghindari rintangan yang ada dengan cara menekan tombol `space` unutk mendapatkan score sebanyak-banyaknya dan mengumpulkan koin sebanyak-banyaknya unutk membuka tema.
 
